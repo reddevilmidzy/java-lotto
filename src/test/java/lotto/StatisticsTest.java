@@ -279,4 +279,28 @@ public class StatisticsTest {
         double revenueRatio = statistics.calculatorRevenueRatio(10000);
         assertEquals(revenueRatio, 16000.0);
     }
+    @DisplayName("억만장자 만수르")
+    @Test
+    void createLottoStatisticsPrizeMax() {
+        Statistics statistics = new Statistics();
+        List<Integer> lottoNumber = new ArrayList<>(List.of(1,2,3,4,5,6));
+
+        WinningNumbers winningNumbers = new WinningNumbers(lottoNumber, 40);
+
+        List<Integer> buyLottoNumber1 = new ArrayList<>(List.of(1,2,3,4,5,6));
+
+
+        List<List<Integer>> lottoNumbers = new ArrayList<>();
+
+        for (int i = 0; i < 100; i++) {
+            lottoNumbers.add(buyLottoNumber1);
+        }
+
+
+
+        statistics.makeWinningStatistics(winningNumbers, lottoNumbers);
+        System.out.println(statistics.getWinningStatistics());
+        double revenueRatio = statistics.calculatorRevenueRatio(100000);
+        assertEquals(revenueRatio, 200000000.0);
+    }
 }

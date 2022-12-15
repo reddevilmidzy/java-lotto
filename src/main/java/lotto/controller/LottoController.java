@@ -26,31 +26,31 @@ public class LottoController {
         try {
             start();
         } catch (IllegalArgumentException e) {
-            outputView.printException(e);
+            outputView.printErrorMessage(e);
         }
     }
 
     private void start() {
         LottoAmount lottoAmount = inputAmount();
-
         List<List<Integer>> lotto = buyLotto(lottoAmount);
-
         Lotto lottoNumber = inputLotto();
-
         BonusNumber bonusNumber = inputBonusNumber();
-
         WinningNumbers winningNumbers = resultNumbers(lottoNumber.getLottoNumber(), bonusNumber.getBonusNumber());
-
         Statistics statistics = summingUp(winningNumbers, lotto);
         winningHistory(statistics);
         calculator(statistics, lottoAmount);
     }
 
     private LottoAmount inputAmount() {
-        int number = inputView.getPurchaseAmount();
-        LottoAmount lottoAmount = new LottoAmount(number);
-        outputView.printBuyLottoTicket(number);
-        return lottoAmount;
+        try {
+            int number = inputView.getPurchaseAmount();
+            LottoAmount lottoAmount = new LottoAmount(number);
+            outputView.printBuyLottoTicket(number);
+            return lottoAmount;
+        } catch (IllegalArgumentException e) {
+            outputView.printErrorMessage(e);
+            return inputAmount();
+        }
     }
 
     private List<List<Integer>> buyLotto(LottoAmount lottoAmount) {
@@ -60,17 +60,32 @@ public class LottoController {
     }
 
     private Lotto inputLotto() {
-        List<Integer> numbers = inputView.getWinningNumbers();
-        return new Lotto(numbers);
+        try {
+            List<Integer> numbers = inputView.getWinningNumbers();
+            return new Lotto(numbers);
+        } catch (IllegalArgumentException e) {
+            outputView.printErrorMessage(e);
+            return inputLotto();
+        }
     }
 
     private BonusNumber inputBonusNumber() {
-        int number = inputView.getBonusNumber();
-        return new BonusNumber(number);
+        try {
+            int number = inputView.getBonusNumber();
+            return new BonusNumber(number);
+        } catch(IllegalArgumentException e) {
+            outputView.printErrorMessage(e);
+            return inputBonusNumber();
+        }
     }
 
     private WinningNumbers resultNumbers(List<Integer> lottoNumber, int bonusNumber) {
-        return new WinningNumbers(lottoNumber, bonusNumber);
+        try {
+            return new WinningNumbers(lottoNumber, bonusNumber);
+        } catch (IllegalArgumentException e) {
+            outputView.printErrorMessage(e);
+            return resultNumbers(lottoNumber, inputBonusNumber().getBonusNumber());
+        }
     }
 
     private Statistics summingUp(WinningNumbers winningNumbers, List<List<Integer>> lottoNumber) {

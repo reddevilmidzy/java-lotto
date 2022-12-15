@@ -50,8 +50,7 @@ public class InputView {
                     .map(Integer::parseInt)
                     .collect(Collectors.toList());
         } catch (NumberFormatException e) {
-            System.out.println("정수를 입력해주셔야 합니다.");
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("정수를 입력해주셔야 합니다.");
         }
     }
 }

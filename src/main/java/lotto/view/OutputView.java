@@ -33,7 +33,7 @@ public class OutputView {
         }
     }
 
-    public void printException(Exception e) {
+    public void printErrorMessage(Exception e) {
         System.out.println(ERROR_MESSAGE + SPACE + e.getMessage());
     }
 
