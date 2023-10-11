@@ -14,5 +14,6 @@ public class LottoController {
 
         String winningNumbers = inputView.readWinningNumbers();
 
+        String bonusNumber = inputView.readBonusNumber();
     }
 }
