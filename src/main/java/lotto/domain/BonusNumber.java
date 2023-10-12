@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import lotto.constant.Message;
+
 public class BonusNumber {
     private final int bonusNumber;
     private static final int START_LOTTO_NUMBER = 1;
@@ -16,7 +18,7 @@ public class BonusNumber {
 
     private void validate(int number) {
         if (!isValidRange(number)) {
-            throw new IllegalArgumentException("로또 숫자는 1이상 45 이하의 숫자를 입력하셔야 합니다.");
+            throw new IllegalArgumentException(Message.NOT_VALID_RANGE_NUMBER);
         }
     }
 
