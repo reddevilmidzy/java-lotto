@@ -6,6 +6,7 @@ import lotto.validator.PurchaseAmountValidator;
 import lotto.validator.Validator;
 import lotto.validator.WinningNumbersValidator;
 import lotto.view.InputView;
+import lotto.view.OutputView;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,15 +14,20 @@ import java.util.stream.IntStream;
 
 public class LottoController {
     private final InputView inputView;
+    private final OutputView outputView;
 
-    public LottoController(InputView inputView) {
+    public LottoController(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
+        this.outputView = outputView;
     }
 
     public void run() {
         String amount = inputView.readPurchaseAmount();
         validate(new PurchaseAmountValidator(), amount);
-        List<List<Integer>> lotto = generate(Integer.parseInt(amount)/1000);
+        Integer count = Integer.parseInt(amount) / 1000;
+        List<List<Integer>> lotto = generate(count);
+        outputView.printBought(count, lotto);
+
         String winningNumbers = inputView.readWinningNumbers();
         validate(new WinningNumbersValidator(), winningNumbers);
         String bonusNumber = inputView.readBonusNumber();
