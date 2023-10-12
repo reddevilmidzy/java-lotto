@@ -1,5 +1,6 @@
 package lotto.view;
 
+import lotto.constant.Message;
 import lotto.domain.Rank;
 
 import java.text.DecimalFormat;
@@ -7,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 public class OutputView {
-    private static final String ERROR_MESSAGE = "[ERROR]";
-    private static final String SPACE = " ";
     private static final int LOTTO_AMOUNT = 1000;
 
     public void printBuyLottoTicket(int purchaseAmount) {
@@ -34,7 +33,7 @@ public class OutputView {
     }
 
     public void printException(Exception e) {
-        System.out.println(ERROR_MESSAGE + SPACE + e.getMessage());
+        System.out.println(Message.ERROR + " " + e.getMessage());
     }
 
     public void printPercentage(double percentage) {

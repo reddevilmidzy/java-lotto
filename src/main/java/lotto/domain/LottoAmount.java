@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.constant.Message;
 import lotto.util.LottoNumberGenerator;
 
 import java.util.List;
@@ -29,14 +30,11 @@ public class LottoAmount {
     }
 
     private void validate(int number) {
-        if (!validMinRange(number)) {
-            throw new IllegalArgumentException("로또 구입 금액은 최소 1,000원 입니다.");
+        if (!validRange(number)) {
+            throw new IllegalArgumentException(Message.NOT_VALID_RANGE_AMOUNT);
         }
         if (!validUnit(number)) {
-            throw new IllegalArgumentException("1000원 단위의 숫자를 입력하셔야 합니다.");
-        }
-        if (!validMaxRange(number)) {
-            throw new IllegalArgumentException("로또는 최대 100,000원까지 구매하실 수 있습니다.");
+            throw new IllegalArgumentException(Message.NOT_VALID_UNIT);
         }
     }
 
@@ -48,11 +46,7 @@ public class LottoAmount {
         return number % LOTTO_AMOUNT == ZERO;
     }
 
-    private boolean validMaxRange(int number) {
-        return number <= MAX_MONEY;
-    }
-
-    private boolean validMinRange(int number) {
-        return MIN_MONEY <= number;
+    private boolean validRange(int number) {
+        return MIN_MONEY <= number && number <= MAX_MONEY;
     }
 }
